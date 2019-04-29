@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Routing
 {
     public static $routeFile = 'routes.yml';
@@ -13,12 +15,12 @@ class Routing
             }
             $c = ucfirst($routes[$slug]['controller']).'Controller';
             $a = $routes[$slug]['action'].'Action';
-            $cPath = 'controllers/'.$c.'.class.php';
+            $cPath = 'Controller/'.$c.'.class.php';
         } else {
             return ['c' => null, 'a' => null, 'cPath' => null];
         }
 
-        return ['c' => $c, 'a' => $a, 'cPath' => $cPath];
+        return ['c' => '\\Controller\\'.$c, 'a' => $a, 'cPath' => $cPath];
     }
 
     public static function getSlug($c, $a)
