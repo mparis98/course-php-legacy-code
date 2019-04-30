@@ -1,0 +1,26 @@
+<?php
+
+namespace ValueObject;
+
+use Model\IdentityInterface;
+
+class Identity implements IdentityInterface
+{
+    private $firstname;
+    private $lastname;
+
+    public function __construct()
+    {
+    }
+
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    public function setLastname(string $lastname): void
+    {
+        $this->lastname = $lastname;
+    }
+
+}

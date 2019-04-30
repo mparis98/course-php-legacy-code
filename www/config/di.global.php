@@ -5,6 +5,7 @@ use Controller\UsersController;
 use Entity\Users;
 use Core\BaseSQL;
 use Model\UsersRepository;
+use ValueObject\Identity;
 
 return [
     BaseSQL::class => function ($container) {
@@ -20,8 +21,9 @@ return [
     Users::class => function ($container) {
         $baseSql = $container[BaseSQL::class]($container);
         $userRep = new UsersRepository($baseSql);
+        $identity = new Identity();
 
-        return new Users($userRep);
+        return new Users($userRep, $identity);
     },
     UsersController::class => function ($container) {
         $userModel = $container[Users::class]($container);

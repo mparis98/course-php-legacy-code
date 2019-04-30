@@ -9,6 +9,7 @@ function myAutoloader(string $class): void
     $classModel = 'Model/'.$classname.'.php';
     $classEntity = 'Entity/'.$classname.'.php';
     $classForm = 'Form/'.$classname.'.php';
+    $classValueObject = 'ValueObject/'.$classname.'.php';
 
 
     if (file_exists($classPath)) {
@@ -19,6 +20,8 @@ function myAutoloader(string $class): void
         include $classEntity;
     }elseif (file_exists($classForm)){
         include $classForm;
+    }elseif (file_exists($classValueObject)){
+        include $classValueObject;
     }
 }
 

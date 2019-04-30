@@ -5,37 +5,28 @@ namespace Entity;
 
 use Model\UserInterface;
 use Model\UsersRepository;
+use ValueObject\Identity;
 
 class Users implements UserInterface
 {
     public $id = null;
-    public $firstname;
-    public $lastname;
     public $email;
     public $pwd;
     public $role = 1;
     public $status = 0;
     private $userRepository;
+    private $identity;
 
-    public function __construct(UsersRepository $usersRepository)
+    public function __construct(UsersRepository $usersRepository, Identity $identity)
     {
         $this->userRepository=$usersRepository;
+        $this->identity=$identity;
     }
 
     public function setId(int $id): void
     {
         $this->id = $id;
         $this->userRepository->getOneBy(['id' => $id], true);
-    }
-
-    public function setFirstname(string $firstname): void
-    {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
-    }
-
-    public function setLastname(string $lastname): void
-    {
-        $this->lastname = strtoupper(trim($lastname));
     }
 
     public function setEmail(string $email): void
