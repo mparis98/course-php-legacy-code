@@ -6,8 +6,8 @@ use Model\IdentityInterface;
 
 class Identity implements IdentityInterface
 {
-    private $firstname;
-    private $lastname;
+    public $firstname;
+    public $lastname;
 
     public function __construct()
     {
@@ -21,6 +21,16 @@ class Identity implements IdentityInterface
     public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
+    }
+
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    public function getLastname(): string
+    {
+        return $this->lastname;
     }
 
 }

@@ -15,7 +15,7 @@ class Users implements UserInterface
     public $role = 1;
     public $status = 0;
     private $userRepository;
-    private $identity;
+    public $identity;
 
     public function __construct(UsersRepository $usersRepository, Identity $identity)
     {
@@ -34,7 +34,7 @@ class Users implements UserInterface
         $this->email = strtolower(trim($email));
     }
 
-    public function setPassword(string $pwd): void
+    public function setPwd(string $pwd): void
     {
         $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
     }
@@ -49,4 +49,28 @@ class Users implements UserInterface
         $this->status = $status;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPwd(): string
+    {
+        return $this->pwd;
+    }
+
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
 }

@@ -8,6 +8,7 @@ use Core\View;
 use Entity\Users;
 use Form\UserForm;
 use Model\UsersRepository;
+use ValueObject\Identity;
 
 class UsersController
 {
@@ -39,7 +40,8 @@ class UsersController
     {
         $userRep = new UserForm();
         $form = $userRep->getRegisterForm();
-        $user = new Users($this->userRepository);
+        $identity = new Identity();
+        $user = new Users($this->userRepository,$identity);
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
 
@@ -48,11 +50,11 @@ class UsersController
             $form['errors'] = $validator->errors;
 
             if (empty($errors)) {
-                $user->setFirstname($data['firstname']);
-                $user->setLastname($data['lastname']);
+                $identity->setFirstname($data['firstname']);
+                $identity->setLastname($data['lastname']);
                 $user->setEmail($data['email']);
                 $user->setPwd($data['pwd']);
-                $this->userRepository->save();
+                $this->userRepository->save($user);
             }
         }
 

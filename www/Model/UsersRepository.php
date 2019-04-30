@@ -5,6 +5,8 @@ namespace Model;
 
 use Core\BaseSQL;
 use Core\Routing;
+use Entity\Users;
+use ValueObject\Identity;
 
 class UsersRepository
 {
@@ -41,21 +43,24 @@ class UsersRepository
         }
     }
 
-    public function save(): void
+    public function save(Users $user): void
     {
-        $dataObject = get_object_vars($this);
+        $dataObject = get_object_vars($user);
+        $dataObjectIdentity = get_object_vars($dataObject['identity']);
+        $dataObjectUser = array_splice($dataObject,0,5);
+        $data = array_merge($dataObjectUser, $dataObjectIdentity);
         $dataChild = array_diff_key($dataObject, get_class_vars(get_class()));
 
-        if (is_null($dataChild['id'])) {
-            $sql = 'INSERT INTO ' . $this->table . ' ( ' .
-                implode(',', array_keys($dataChild)) . ') VALUES ( :' .
-                implode(',:', array_keys($dataChild)) . ')';
+        if (is_null($data['id'])) {
+            $sql = 'INSERT INTO Users' . ' ( ' .
+                implode(',', array_keys($data)) . ') VALUES ( :' .
+                implode(',:', array_keys($data)) . ')';
 
             $query = $this->pdo->prepare($sql);
-            $query->execute($dataChild);
+            $query->execute($data);
         } else {
             $sqlUpdate = [];
-            foreach ($dataChild as $key => $value) {
+            foreach ($data as $key => $value) {
                 if ('id' != $key) {
                     $sqlUpdate[] = $key . '=:' . $key;
                 }

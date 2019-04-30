@@ -10,7 +10,7 @@ interface ViewInterface
 
     public function setTemplate(string $t): void;
 
-    public function addModal(string $modal): void;
+    public function addModal(string $modal,array $config): void;
 
-    public function assign(string $key, string $value): void;
+    public function assign(string $key, array $value): void;
 }
