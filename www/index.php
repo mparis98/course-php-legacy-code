@@ -2,18 +2,23 @@
 declare(strict_types=1);
 use Core\Routing;
 
-require 'conf.inc.php';
-
 function myAutoloader(string $class): void
 {
     $classname = substr($class,strpos($class,'\\')+1);
-    $classPath = 'Core/'.$classname.'.class.php';
-    $classModel = 'Model/'.$classname.'.class.php';
+    $classPath = 'Core/'.$classname.'.php';
+    $classModel = 'Model/'.$classname.'.php';
+    $classEntity = 'Entity/'.$classname.'.php';
+    $classForm = 'Form/'.$classname.'.php';
+
 
     if (file_exists($classPath)) {
         include $classPath;
     } elseif (file_exists($classModel)) {
         include $classModel;
+    }elseif (file_exists($classEntity)){
+        include $classEntity;
+    }elseif (file_exists($classForm)){
+        include $classForm;
     }
 }
 

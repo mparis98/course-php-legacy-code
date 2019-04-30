@@ -1,33 +1,45 @@
 <?php
+declare(strict_types=1);
 
 namespace Controller;
 
 use Core\Validator;
 use Core\View;
-use Model\Users;
+use Entity\Users;
+use Form\UserForm;
+use Model\UsersRepository;
 
 class UsersController
 {
+
+    private $user;
+
+    public function __construct(Users $user)
+    {
+        $this->user = $user;
+    }
+
     public function defaultAction()
     {
         echo 'users default';
     }
 
-    public function addAction()
+    public function addAction(): void
     {
-        $user = new Users();
+        $user = new UserForm();
         $form = $user->getRegisterForm();
 
         $v = new View('addUser', 'front');
         $v->assign('form', $form);
     }
 
-    public function saveAction()
+    public function saveAction(): void
     {
-        $user = new Users();
-        $form = $user->getRegisterForm();
+        $userRep = new UserForm();
+        $form = $userRep->getRegisterForm();
+        $user = new Users($driver, $host, $name, $user, $password);
         $method = strtoupper($form['config']['method']);
-        $data = $GLOBALS['_'.$method];
+        $data = $GLOBALS['_' . $method];
 
         if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
             $validator = new Validator($form, $data);
@@ -46,19 +58,19 @@ class UsersController
         $v->assign('form', $form);
     }
 
-    public function loginAction()
+    public function loginAction(): void
     {
-        $user = new Users();
-        $form = $user->getLoginForm();
+        $userRep = new UserForm();
+        $form = $userRep->getLoginForm();
 
         $method = strtoupper($form['config']['method']);
-        $data = $GLOBALS['_'.$method];
+        $data = $GLOBALS['_' . $method];
         if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
             $validator = new Validator($form, $data);
             $form['errors'] = $validator->errors;
 
             if (empty($errors)) {
-                $token = md5(substr(uniqid().time(), 4, 10).'mxu(4il');
+                $token = md5(substr(uniqid() . time(), 4, 10) . 'mxu(4il');
                 // TODO: connexion
             }
         }
@@ -67,7 +79,7 @@ class UsersController
         $v->assign('form', $form);
     }
 
-    public function forgetPasswordAction()
+    public function forgetPasswordAction(): void
     {
         $v = new View('forgetPasswordUser', 'front');
     }

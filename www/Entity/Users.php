@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Model;
+namespace Entity;
 
 use Core\BaseSQL;
-use Core\Routing;
+use Model\UsersRepository;
 
-class Users extends BaseSQL
+class Users
 {
     public $id = null;
     public $firstname;
@@ -15,10 +15,18 @@ class Users extends BaseSQL
     public $pwd;
     public $role = 1;
     public $status = 0;
+    private $repository;
+    private $pdo;
 
-    public function __construct()
+    public function __construct($driver, $host, $name, $user, $password)
     {
-        parent::__construct(DBDRIVER, DBHOST, DBNAME, DBUSER, DBPWD);
+        $this->repository = new UsersRepository($driver,$host,$name,$user,$password);
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+        $this->repository->getOneBy(['id' => $id], true);
     }
 
     public function setFirstname(string $firstname): void
