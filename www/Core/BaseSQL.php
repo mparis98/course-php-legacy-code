@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Core;
 
-class BaseSQL
+use Model\PdoInterface;
+
+class BaseSQL implements PdoInterface
 {
     protected $pdo;
 

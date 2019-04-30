@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Core;
 
-class Routing
+use Model\RoutingInterface;
+
+class Routing implements RoutingInterface
 {
     public static $routeFile = 'routes.yml';
 

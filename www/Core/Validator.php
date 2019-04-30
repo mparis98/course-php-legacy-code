@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Core;
 
-class Validator
+use Model\ValidatorInterface;
+
+class Validator implements ValidatorInterface
 {
     public $errors = [];
 

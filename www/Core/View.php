@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Core;
 
-class View
+use Model\ViewInterface;
+
+class View implements ViewInterface
 {
     private $v;
     private $t;
@@ -35,7 +37,7 @@ class View
         }
     }
 
-    public function addModal(string $modal, $config): void
+    public function addModal(string $modal): void
     {
         $modalPath = 'views/modals/' . $modal . '.mod.php';
         if (file_exists($modalPath)) {
@@ -45,7 +47,7 @@ class View
         }
     }
 
-    public function assign($key, $value): void
+    public function assign(string $key, string $value): void
     {
         $this->data[$key] = $value;
     }

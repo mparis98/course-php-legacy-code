@@ -13,10 +13,12 @@ class UsersController
 {
 
     private $user;
+    private $userRepository;
 
-    public function __construct(Users $user)
+    public function __construct(Users $user, UsersRepository $usersRepository)
     {
         $this->user = $user;
+        $this->userRepository= $usersRepository;
     }
 
     public function defaultAction()
@@ -37,7 +39,7 @@ class UsersController
     {
         $userRep = new UserForm();
         $form = $userRep->getRegisterForm();
-        $user = new Users($driver, $host, $name, $user, $password);
+        $user = new Users($this->userRepository);
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
 
@@ -50,7 +52,7 @@ class UsersController
                 $user->setLastname($data['lastname']);
                 $user->setEmail($data['email']);
                 $user->setPwd($data['pwd']);
-                $user->save();
+                $this->userRepository->save();
             }
         }
 

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Entity;
 
-use Core\BaseSQL;
+use Model\UserInterface;
 use Model\UsersRepository;
 
-class Users
+class Users implements UserInterface
 {
     public $id = null;
     public $firstname;
@@ -15,18 +15,17 @@ class Users
     public $pwd;
     public $role = 1;
     public $status = 0;
-    private $repository;
-    private $pdo;
+    private $userRepository;
 
-    public function __construct($driver, $host, $name, $user, $password)
+    public function __construct(UsersRepository $usersRepository)
     {
-        $this->repository = new UsersRepository($driver,$host,$name,$user,$password);
+        $this->userRepository=$usersRepository;
     }
 
     public function setId(int $id): void
     {
         $this->id = $id;
-        $this->repository->getOneBy(['id' => $id], true);
+        $this->userRepository->getOneBy(['id' => $id], true);
     }
 
     public function setFirstname(string $firstname): void
@@ -44,7 +43,7 @@ class Users
         $this->email = strtolower(trim($email));
     }
 
-    public function setPwd(string $pwd): void
+    public function setPassword(string $pwd): void
     {
         $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
     }
