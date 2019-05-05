@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Controller\PagesController;
 use Controller\UsersController;
