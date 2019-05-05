@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +28,7 @@
 <body class="bg-dark">
 
 <div class="container">
-    <?php include $this->v; ?>
+    <?php include $this->view; ?>
 </div>
 
 <!-- Bootstrap core JavaScript-->

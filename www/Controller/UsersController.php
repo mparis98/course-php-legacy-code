@@ -32,8 +32,8 @@ class UsersController
         $user = new UserForm();
         $form = $user->getRegisterForm();
 
-        $v = new View('addUser', 'front');
-        $v->assign('form', $form);
+        $view = new View('addUser', 'front');
+        $view->assign('form', $form);
     }
 
     public function saveAction(): void
@@ -58,8 +58,8 @@ class UsersController
             }
         }
 
-        $v = new View('addUser', 'front');
-        $v->assign('form', $form);
+        $view = new View('addUser', 'front');
+        $view->assign('form', $form);
     }
 
     public function loginAction(): void
@@ -76,11 +76,29 @@ class UsersController
             if (empty($errors)) {
                 $token = md5(substr(uniqid() . time(), 4, 10) . 'mxu(4il');
                 // TODO: connexion
+                $login = $_POST['email'];
+                $password = $_POST['pwd'];
+                if ($login != null && $password != null) {
+                    $user = $this->userRepository->getUserLogin($login);
+                    if ($user) {
+                        if (password_verify($password, $user['pwd'])) {
+                            session_start();
+                            $_SESSION['email'] = $user['email'];
+                            $_SESSION['id'] = $user['id'];
+                            $view = new View('homepage', 'back');
+                            $view->assign('pseudo', 'prof');
+                        } else {
+                            echo "<div class=\"msg msg-error z-depth-3 scale-transition\">Incorrect password</div>";
+                        }
+                    } else {
+                        echo "<div class=\"msg msg-error z-depth-3 scale-transition\">The user does not exist</div>";
+                    }
+                }
             }
         }
 
-        $v = new View('loginUser', 'front');
-        $v->assign('form', $form);
+        $view = new View('loginUser', 'front');
+        $view->assign('form', $form);
     }
 
     public function forgetPasswordAction(): void

@@ -6,9 +6,9 @@ namespace Model;
 
 interface ViewInterface
 {
-    public function setView(string $v): void;
+    public function setView(string $view): void;
 
-    public function setTemplate(string $t): void;
+    public function setTemplate(string $template): void;
 
     public function addModal(string $modal,array $config): void;
 

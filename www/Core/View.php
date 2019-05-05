@@ -7,31 +7,31 @@ use Model\ViewInterface;
 
 class View implements ViewInterface
 {
-    private $v;
-    private $t;
+    private $view;
+    private $template;
     private $data = [];
 
-    public function __construct(string $v, string $t = 'back')
+    public function __construct(string $view, string $template = 'back')
     {
-        $this->setView($v);
-        $this->setTemplate($t);
+        $this->setView($view);
+        $this->setTemplate($template);
     }
 
-    public function setView(string $v): void
+    public function setView(string $view): void
     {
-        $viewPath = 'views/' . $v . '.view.php';
+        $viewPath = 'views/' . $view . '.view.php';
         if (file_exists($viewPath)) {
-            $this->v = $viewPath;
+            $this->view = $viewPath;
         } else {
             die("Attention le fichier view n'existe pas " . $viewPath);
         }
     }
 
-    public function setTemplate(string $t): void
+    public function setTemplate(string $template): void
     {
-        $templatePath = 'views/templates/' . $t . '.tpl.php';
+        $templatePath = 'views/templates/' . $template . '.tpl.php';
         if (file_exists($templatePath)) {
-            $this->t = $templatePath;
+            $this->template = $templatePath;
         } else {
             die("Attention le fichier template n'existe pas " . $templatePath);
         }
@@ -55,6 +55,6 @@ class View implements ViewInterface
     public function __destruct()
     {
         extract($this->data);
-        include $this->t;
+        include $this->template;
     }
 }

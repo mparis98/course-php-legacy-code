@@ -47,7 +47,7 @@ class UsersRepository
     {
         $dataObject = get_object_vars($user);
         $dataObjectIdentity = get_object_vars($dataObject['identity']);
-        $dataObjectUser = array_splice($dataObject,0,5);
+        $dataObjectUser = array_splice($dataObject, 0, 5);
         $data = array_merge($dataObjectUser, $dataObjectIdentity);
         $dataChild = array_diff_key($dataObject, get_class_vars(get_class()));
 
@@ -71,5 +71,13 @@ class UsersRepository
             $query = $this->pdo->prepare($sql);
             $query->execute($dataChild);
         }
+    }
+
+    public function getUserLogin(string $login): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Users WHERE email = :login");
+        $stmt->bindParam('login', $login);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }
