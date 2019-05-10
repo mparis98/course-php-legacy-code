@@ -9,13 +9,13 @@ use ValueObject\Identity;
 
 class Users implements UserInterface
 {
-    public $id = null;
-    public $email;
-    public $pwd;
-    public $role = 1;
-    public $status = 0;
+    private $id = null;
+    private $email;
+    private $pwd;
+    private $role = 1;
+    private $status = 0;
     private $userRepository;
-    public $identity;
+    private $identity;
 
     public function __construct(UsersRepository $usersRepository, Identity $identity)
     {

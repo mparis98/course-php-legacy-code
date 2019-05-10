@@ -30,7 +30,8 @@ class UsersRepository
 
         if ($object) {
             $query->setFetchMode(\PDO::FETCH_INTO, $this);
-        } else {
+        }
+        if ($object == false) {
             $query->setFetchMode(\PDO::FETCH_ASSOC);
         }
 
@@ -58,7 +59,8 @@ class UsersRepository
 
             $query = $this->pdo->prepare($sql);
             $query->execute($data);
-        } else {
+        }
+        if (!is_null($data['id'])) {
             $sqlUpdate = [];
             foreach ($data as $key => $value) {
                 if ('id' != $key) {

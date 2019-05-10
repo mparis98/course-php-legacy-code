@@ -74,7 +74,8 @@ class UsersController
             $form['errors'] = $validator->errors;
 
             if (empty($errors)) {
-                $token = md5(substr(uniqid() . time(), 4, 10) . 'mxu(4il');
+                $uniq = substr(uniqid() . time(), 4, 10);
+                $token = md5( $uniq. 'mxu(4il');
                 // TODO: connexion
                 $login = $_POST['email'];
                 $password = $_POST['pwd'];
@@ -87,11 +88,7 @@ class UsersController
                             $_SESSION['id'] = $user['id'];
                             $view = new View('homepage', 'back');
                             $view->assign('pseudo', 'prof');
-                        } else {
-                            echo "<div class=\"msg msg-error z-depth-3 scale-transition\">Incorrect password</div>";
                         }
-                    } else {
-                        echo "<div class=\"msg msg-error z-depth-3 scale-transition\">The user does not exist</div>";
                     }
                 }
             }

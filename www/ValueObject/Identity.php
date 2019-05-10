@@ -7,8 +7,8 @@ use Model\IdentityInterface;
 
 class Identity implements IdentityInterface
 {
-    public $firstname;
-    public $lastname;
+    private $firstname;
+    private $lastname;
 
     public function __construct()
     {

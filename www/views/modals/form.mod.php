@@ -26,8 +26,8 @@
                 <?php if ('text' == $value['type'] || 'email' == $value['type'] || 'password' == $value['type']): ?>
 
                     <?php if ('password' == $value['type']) {
-    unset($data[$key]);
-} ?>
+                        unset($data[$key]);
+                    } ?>
 
 
                     <input type="<?php echo $value['type']; ?>"
