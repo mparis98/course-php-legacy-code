@@ -19,7 +19,7 @@ class UsersController
     public function __construct(Users $user, UsersRepository $usersRepository)
     {
         $this->user = $user;
-        $this->userRepository= $usersRepository;
+        $this->userRepository = $usersRepository;
     }
 
     public function defaultAction()
@@ -41,7 +41,7 @@ class UsersController
         $userRep = new UserForm();
         $form = $userRep->getRegisterForm();
         $identity = new Identity();
-        $user = new Users($this->userRepository,$identity);
+        $user = new Users($this->userRepository, $identity);
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
 
@@ -75,7 +75,7 @@ class UsersController
 
             if (empty($errors)) {
                 $uniq = substr(uniqid() . time(), 4, 10);
-                $token = md5( $uniq. 'mxu(4il');
+                $token = md5($uniq . 'mxu(4il');
                 // TODO: connexion
                 $login = $_POST['email'];
                 $password = $_POST['pwd'];

@@ -44,7 +44,7 @@ class UserForm
         ];
     }
 
-    public function getLoginForm() :array
+    public function getLoginForm(): array
     {
         return [
             'config' => [

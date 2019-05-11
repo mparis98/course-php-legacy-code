@@ -7,7 +7,7 @@ use Core\View;
 
 class PagesController
 {
-    public function defaultAction() : void
+    public function defaultAction(): void
     {
         $view = new View('homepage', 'back');
         $view->assign('pseudo', 'prof');

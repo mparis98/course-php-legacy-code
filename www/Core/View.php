@@ -37,7 +37,7 @@ class View implements ViewInterface
         }
     }
 
-    public function addModal(string $modal,array $config): void
+    public function addModal(string $modal, array $config): void
     {
         $modalPath = 'views/modals/' . $modal . '.mod.php';
         if (file_exists($modalPath)) {
